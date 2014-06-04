@@ -1,0 +1,61 @@
+This can be used like a portable backup script system !
+
+If you want to use the current folder as base
+you don't have to change anything !
+
+
+
+Generate Directories for Backup and Log Files
+
+If not exist %cd%\Log mkdir %cd%\Log
+
+If not exist %cd%\Server mkdir %cd%\Server
+
+
+Set Variable to use the current directory
+of the script as base.
+
+To Separate Script-Directory from Backup and Log directory
+change for your needs. You may have to generate the Server 
+and Log directories by yourself in your preferred path.
+
+Again:	If you want to use the current folder as base
+	you don't have to change anything.
+
+
+Scriptpath as current directory
+
+set scriptpath=%cd%
+
+Logpath in Folder Log below current directory
+
+set logpath=%scriptpath%\Log
+
+Root Folder for the Backups in Folder Server 
+
+set targetroot=%scriptpath%\Server
+
+Rename template file - no wait for example server
+
+ren S_Template.cmd NoExecute_S_Template.cmd
+
+Calling the backup scripts with a Loop and
+handing over the variables.
+Prefix for scripts to be called is "S_" - S like Server ;-)
+So you can prepare scripts without execution.
+
+For %%n in (S_*.cmd) do call %%n %scriptpath% %logpath% %targetroot% %%n
+
+
+Rename NoExecute.. file
+
+ren NoExecute_S_Template.cmd S_Template.cmd
+
+
+set scriptpath=
+
+set logpath=
+
+set targetroot=
+
+
