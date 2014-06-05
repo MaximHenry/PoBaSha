@@ -1,0 +1,147 @@
+Quick Start:
+
+To use when something goes wrong.
+
+The same as _Description_S_Template.txt
+with the addition of two entries:
+
+TEE:
+
+Standard Options optstd with "TEE" so the output 
+of the robocopy - command can be watched in
+the command line window. The log file will be
+created as usual.
+
+PAUSE:
+
+After the robocopy-command is a "pause" inserted.
+Without it the window disappears and if available
+the next S_..-Script will be executed.
+
+
+
+
+DEFINE SERVER AND SHARE and SUBSHARE - subshare if needed
+
+and save the file as S_ServerName_ShareName.cmd or S_ServerName_ShareName_Subsharename.cmd
+
+IMPORTANT: No Spaces in Share and Subshare !
+
+
+rem The first four variables are initialized with the script "BackupInit".
+
+rem The Copy-Options of Robocopy can  be changed 
+rem below "BEGIN OPTIONS".
+
+rem NECESSARY:	Define Server, Share and Subshare
+rem 		below "BEGIN DEFINE SERVER AND SHARE".
+
+rem 
+
+Getting the paths:
+
+set scriptpath=%1
+
+set logpath=%2
+
+set targetroot=%3
+
+
+Getting the logfilename from the name of the script
+Would be here S_Template.cmd:
+
+set logfilename=%4
+
+Setting the logging option, a file below the
+log folder will be created.
+
+set optlog=/LOG:%logpath%\%logfilename%.log
+
+Here you can change your robocopy options
+for your needs.
+
+The options are splitted in some standard options
+and special options. 
+
+The standard options should be the same for every script
+but feel free to change if you want or need to have different options.
+
+The Special Options are for "Special Cases",
+like excluding files or directories or something else
+what is special for these script..
+
+rem BEGIN OPTIONS
+
+rem Change Options for your needs if necessary
+rem 
+
+set optstd=/E /PURGE /COPY:DATS /R:0 /W:0 /TEE
+
+set optspc=
+
+rem END OPTIONS
+
+YOUR WORK BEGINS:
+
+! Define your source server, the source share and if
+! appropriate the sub share.
+
+! Important: Save the File with a speaking name
+! e.g. S_servername_sharename_Subsharename.cmd
+! Example: S_ExampleServer_E$.cmd
+! Then logfile has the name S_ExampleServer_E$.cmd.log
+
+
+
+rem BEGIN DEFINE SERVER AND SHARE
+
+rem Set Server, Sourceshare and if needed subshare
+
+set sourcesrv=\\ExampleServer
+set sourceshare=e$
+set subshare=
+
+
+rem END DEFINE SERVER AND SHARE
+
+rem END OF YOUR WORK ;-)
+
+set sourcepath=%sourcesrv%\%sourceshare%\%subshare%
+
+set targetpath=%targetroot%\%sourcepath:~2%
+
+robocopy.exe %sourcepath%." "%targetpath%." %optstd% %optspc% %optlog%
+pause
+
+The dot after sourcepath and targetpath in the robocopy command line
+is necessary. Without it there will be an error if no subshare is defined.
+
+The following command will remove the attributes hidden and system.
+This is useful if you work with administrative shares.
+Removing the attributes and the folder will show up.
+
+Otherwise you have to turn on "Show System Files and Folders"
+in the windows explorer options.
+
+If the folder doesn't have these attributes these command
+does no harm.
+
+attrib -H -S %targetroot%\%sourcesrv:~2%\%sourceshare%
+
+
+set scriptpath=
+set logpath=
+set targetroot=
+set logfilename=
+set optlog=
+
+set optstd=
+set optspc=
+
+set sourcesrv=
+set sourceshare=
+set subshare=
+set sourcepath=
+set targetpath=
+
+
