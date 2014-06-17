@@ -35,9 +35,11 @@ Root Folder for the Backups in Folder Server
 
 set targetroot=%scriptpath%\Server
 
-Rename template file - no wait for example server
+Rename template files - no wait for example server
 
 ren S_Template.cmd NoExecute_S_Template.cmd
+
+ren S_Template_Debug.cmd NoExecute_S_Template_Debug.cmd
 
 Calling the backup scripts with a Loop and
 handing over the variables.
@@ -47,10 +49,11 @@ So you can prepare scripts without execution.
 For %%n in (S_*.cmd) do call %%n %scriptpath% %logpath% %targetroot% %%n
 
 
-Rename NoExecute.. file
+Rename NoExecute.. files
 
 ren NoExecute_S_Template.cmd S_Template.cmd
 
+ren NoExecute_S_Template_Debug.cmd S_Template_Debug.cmd
 
 set scriptpath=
 
