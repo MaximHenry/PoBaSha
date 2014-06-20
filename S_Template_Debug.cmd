@@ -40,7 +40,7 @@ rem BEGIN DEFINE SERVER AND SHARE
 rem Set Server, Sourceshare and if needed subshare
 
 set sourcesrv=\\ExampleServer
-set sourceshare=ExampleShare	
+set sourceshare=ExampleShare
 set subshare=ExampleSubShare
 
 
