@@ -1,0 +1,15 @@
+*Project Description*
+ 
+PoBaSha is a set of scripts to Backup SMB Shares with robocopy.exe.
+The access rights for the shares are a prerequisite.
+
+It is "Portable" because with running the BackupInit.cmd the folders
+for the backups and the logs will be created.
+
+There is no requirement to change locations.
+
+Further Information please read the Description Files
+
+June 2014 Bavaria
+
+
